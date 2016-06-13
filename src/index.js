@@ -5,9 +5,9 @@ exports.handler = (event, context, callback) => {
   let describeInstanceStatusPromise = ec2.describeInstanceStatus().promise();
 
   describeInstanceStatusPromise.then((data) => {
-    let targets = data.InstanceStatuses.filter((v) => { v.events.length > 0 });
-    callback(null, targets)
+    let targets = data.InstanceStatuses.filter((v) => { v.events.length > 0; });
+    callback(null, targets);
   }).catch((err) => {
-    callback("error", err);
+    callback('error', err);
   });
 };
