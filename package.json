@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d lib",
+    "lint": "eslint src/*.js",
     "local": "node lib/run.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "babel --watch src -d lib"
@@ -21,7 +22,8 @@
   "homepage": "https://github.com/dtan4/ec2-event-slack-notifier#readme",
   "devDependencies": {
     "babel-cli": "^6.10.1",
-    "babel-preset-es2015": "^6.9.0"
+    "babel-preset-es2015": "^6.9.0",
+    "eslint": "^2.12.0"
   },
   "dependencies": {
     "aws-sdk": "^2.3.19"
