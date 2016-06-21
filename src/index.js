@@ -1,10 +1,12 @@
 import AWS from 'aws-sdk';
 
+const locale = 'ja-JP';
+
 function constructAttachments(statuses) {
   return statuses.map(status => {
     return status.Events.map(event => {
-      var eventFrom = event.NotBefore.toLocaleString('ja-JP', { hour12: false });
-      var eventTo = event.NotBefore.toLocaleString('ja-JP', { hour12: false });
+      var eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
+      var eventTo = event.NotBefore.toLocaleString(locale, { hour12: false });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
