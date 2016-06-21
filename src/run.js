@@ -5,7 +5,7 @@ var context = {};
 var callback = (error, message) => {
   if (error) {
     console.log('ERROR!');
-    console.log(message);
+    console.log(error);
   } else {
     console.log('SUCCESS!');
     console.log(message);

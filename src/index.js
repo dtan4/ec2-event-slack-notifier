@@ -8,6 +8,6 @@ exports.handler = (event, context, callback) => {
     let targets = data.InstanceStatuses.filter(v => v.Events.length > 0);
     callback(null, targets);
   }).catch(err => {
-    callback('error', err);
+    callback(err);
   });
 };
