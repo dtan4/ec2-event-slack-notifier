@@ -3,8 +3,11 @@ import AWS from 'aws-sdk';
 function constructAttachments(statuses) {
   return statuses.map(status => {
     return status.Events.map(event => {
+      var eventFrom = event.NotBefore.toLocaleString('ja-JP', { hour12: false });
+      var eventTo = event.NotBefore.toLocaleString('ja-JP', { hour12: false });
+
       return {
-        fallback: `${status.InstanceId} / ${event.Code} / ${event.NotBefore} - ${event.NotAfter} / ${event.Description}`,
+        fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
         color: 'warning',
         fields: [
           {
@@ -19,7 +22,7 @@ function constructAttachments(statuses) {
           },
           {
             title: 'Duration',
-            value: `${event.NotBefore} - ${event.NotAfter}`,
+            value: `${eventFrom} - ${eventTo}`,
             short: false,
           },
           {
