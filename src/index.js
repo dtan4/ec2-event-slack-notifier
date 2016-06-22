@@ -1,6 +1,8 @@
 import AWS from 'aws-sdk';
+import RP from 'request-promise';
 
 const locale = 'ja-JP';
+const webHookURL = '<WEBHOOK_URL>';
 
 function constructAttachments(statuses) {
   var now = new Date();
@@ -65,9 +67,16 @@ exports.handler = (event, context, callback) => {
       attachments: attachments,
     };
 
-    return message;
+    let options = {
+      method: 'POST',
+      uri: webHookURL,
+      body: message,
+      json: true,
+    };
+
+    return RP(options);
   }).then(data => {
-    callback(null, JSON.stringify(data));
+    callback(null, data);
   }).catch(err => {
     callback(err);
   });
