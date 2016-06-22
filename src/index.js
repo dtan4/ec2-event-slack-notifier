@@ -3,10 +3,12 @@ import AWS from 'aws-sdk';
 const locale = 'ja-JP';
 
 function constructAttachments(statuses) {
+  var now = new Date();
+
   return statuses.map(status => {
-    return status.Events.map(event => {
+    return status.Events.filter(e => e.NotAfter.getTime() > now.getTime()).map(event => {
       var eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
-      var eventTo = event.NotBefore.toLocaleString(locale, { hour12: false });
+      var eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
@@ -34,8 +36,8 @@ function constructAttachments(statuses) {
           },
         ],
       };
-    }).reduce((r, v) => r.concat(v));
-  });
+    });
+  }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []);
 }
 
 exports.handler = (event, context, callback) => {
@@ -45,8 +47,6 @@ exports.handler = (event, context, callback) => {
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
     let attachments = constructAttachments(statuses);
-
-    console.log(attachments.length);
 
     if (attachments.length == 0) {
       return {};
@@ -59,7 +59,7 @@ exports.handler = (event, context, callback) => {
 
     return message;
   }).then(data => {
-    callback(null, data);
+    callback(null, JSON.stringify(data));
   }).catch(err => {
     callback(err);
   });
