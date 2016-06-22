@@ -7,20 +7,13 @@ function constructAttachments(statuses) {
 
   return statuses.map(status => {
     return status.Events.filter(e => e.NotAfter > now).map(event => {
-      var color;
-
-      if (event.NotBefore > now) {
-        color = 'warning';
-      } else {
-        color = 'danger';
-      }
-
+      var color = event.NotBefore > now ? 'warning' : 'danger';
       var eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
       var eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
-        color: 'warning',
+        color: color,
         fields: [
           {
             title: 'Instance',
