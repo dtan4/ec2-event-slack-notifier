@@ -9,7 +9,7 @@ function exclude_paths() {
   return Object.keys(Package.devDependencies).map(key => exclude_path(key)).join(' ');
 }
 
-var command = `zip -r dist/ec2-event-slack-notifier.zip index.js node_modules -x ${exclude_paths()}`
+var command = `zip -r dist/ec2-event-slack-notifier.zip env.js index.js node_modules -x ${exclude_paths()}`
 
 exec(command, { maxBuffer: 400 * 1024 }, (err, stdout, stderr) => {
   console.log(`stdout: ${stdout}`);

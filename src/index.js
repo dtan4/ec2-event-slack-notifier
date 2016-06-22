@@ -1,8 +1,6 @@
 import AWS from 'aws-sdk';
 import RP from 'request-promise';
-
-const locale = 'ja-JP';
-const webHookURL = '<WEBHOOK_URL>';
+import { locale, timezone, webHookURL } from './env';
 
 function constructAttachments(statuses) {
   var now = new Date();
@@ -48,6 +46,10 @@ function constructAttachments(statuses) {
       };
     });
   }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []);
+}
+
+if (timezone != '') {
+  process.env.TZ = timezone;
 }
 
 exports.handler = (event, context, callback) => {
