@@ -4,7 +4,8 @@
   "description": "Notify EC2 Scheduled Events to Slack",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "babel": "babel src -d lib",
+    "build": "rm -fr dist; mkdir dist; node lib/build.js",
     "lint": "eslint src/*.js",
     "local": "node lib/run.js",
     "test": "echo \"Error: no test specified\" && exit 1",
