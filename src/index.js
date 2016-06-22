@@ -65,7 +65,7 @@ exports.handler = (event, context, callback) => {
     }
 
     let message = {
-      text: 'There are some EC2 Scheduled Events.',
+      text: ':warning: There are some EC2 Scheduled Events. :warning:',
       attachments: attachments,
     };
 
