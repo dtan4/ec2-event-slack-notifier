@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "babel": "babel src -d lib",
-    "build": "rm -fr dist; mkdir dist; node lib/build.js",
+    "build": "rm -fr dist; mkdir dist; cp lib/index.js index.js; node lib/build.js; rm index.js",
     "lint": "eslint src/*.js",
     "local": "node lib/run.js",
     "test": "echo \"Error: no test specified\" && exit 1",
