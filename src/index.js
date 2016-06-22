@@ -3,13 +3,13 @@ import RP from 'request-promise';
 import { locale, timezone, webHookURL } from './env';
 
 function constructAttachments(statuses) {
-  var now = new Date();
+  let now = new Date();
 
   return statuses.map(status => {
     return status.Events.filter(e => e.NotAfter > now).map(event => {
-      var color = event.NotBefore > now ? 'warning' : 'danger';
-      var eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
-      var eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
+      let color = event.NotBefore > now ? 'warning' : 'danger';
+      let eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
+      let eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
