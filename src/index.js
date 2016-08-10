@@ -6,7 +6,7 @@ function constructAttachments(statuses) {
   let now = new Date();
 
   return statuses.map(status => {
-    return status.Events.filter(e => e.NotAfter > now).map(event => {
+    return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
       let eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
       let eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
