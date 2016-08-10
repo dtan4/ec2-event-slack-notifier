@@ -8,8 +8,8 @@ function constructAttachments(statuses) {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom = event.NotBefore.toLocaleString(locale, { hour12: false });
-      let eventTo = event.NotAfter.toLocaleString(locale, { hour12: false });
+      let eventFrom = event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false });
+      let eventTo = event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
