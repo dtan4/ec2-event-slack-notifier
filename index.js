@@ -1,8 +1,9 @@
-import AWS from 'aws-sdk';
-import RP from 'request-promise';
-import { locale, timezone, webHookURL } from './env';
+'use strict';
 
-function constructAttachments(statuses) {
+let AWS = require('aws-sdk');
+let RP = require('request-promise');
+
+function constructAttachments(statuses, locale) {
   let now = new Date();
 
   return statuses.map(status => {
@@ -41,17 +42,21 @@ function constructAttachments(statuses) {
   }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []);
 }
 
-if (timezone != '') {
-  process.env.TZ = timezone;
-}
-
 exports.handler = (event, context, callback) => {
+  let locale = process.env.LOCALE;          // e.g. ja-JP
+  let timezone = process.env.TIMEZONE;      // e.g. Asia/Tokyo
+  let webHookURL = process.env.WEBHOOK_URL;
+
+  if (!process.env.TZ && timezone != '') {
+    process.env.TZ = timezone;
+  }
+
   let ec2 = new AWS.EC2();
   let describeInstanceStatusPromise = ec2.describeInstanceStatus().promise();
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses);
+    let attachments = constructAttachments(statuses, locale);
 
     if (attachments.length == 0) {
       return {};
