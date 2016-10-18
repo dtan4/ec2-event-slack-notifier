@@ -2,45 +2,7 @@
 
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
-
-function constructAttachments(statuses, locale) {
-  let now = new Date();
-
-  return statuses.map(status => {
-    return status.Events.map(event => {
-      let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom = event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false });
-      let eventTo = event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false });
-
-      return {
-        fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
-        color: color,
-        fields: [
-          {
-            title: 'Instance',
-            value: status.InstanceId,
-            short: true,
-          },
-          {
-            title: 'Event Type',
-            value: event.Code,
-            short: true,
-          },
-          {
-            title: 'Duration',
-            value: `${eventFrom} - ${eventTo}`,
-            short: false,
-          },
-          {
-            title: 'Description',
-            value: event.Description,
-            short: false,
-          },
-        ],
-      };
-    });
-  }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []);
-}
+let slack = require('./slack.js');
 
 exports.handler = (event, context, callback) => {
   let locale = process.env.LOCALE;          // e.g. ja-JP
@@ -56,7 +18,7 @@ exports.handler = (event, context, callback) => {
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses, locale);
+    let attachments = slack.constructAttachments(statuses, locale);
 
     if (attachments.length == 0) {
       return {};
@@ -81,3 +43,5 @@ exports.handler = (event, context, callback) => {
     callback(err);
   });
 };
+
+exports.handler(null, null, (err, msg) => { console.log(err ? err : msg); });
