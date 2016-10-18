@@ -4,6 +4,7 @@ extends:
 plugins:
   - node
 rules:
+  comma-dangle: 0
   node/no-unsupported-features:
     - error
     - version: 4
