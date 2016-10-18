@@ -6,7 +6,7 @@
   "scripts": {
     "babel": "babel src -d lib",
     "build": "rm -fr dist; mkdir dist; cp lib/env.js lib/index.js .; node lib/build.js; rm env.js index.js",
-    "lint": "eslint src/*.js",
+    "lint": "eslint *.js",
     "local": "node lib/run.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "babel --watch src -d lib"
