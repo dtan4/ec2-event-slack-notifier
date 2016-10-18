@@ -1,0 +1,13 @@
+extends:
+  - eslint:recommended
+  - plugin:node/recommended
+plugins:
+  - node
+rules:
+  node/no-unsupported-features:
+    - error
+    - version: 4
+  no-console: 0
+  semi:
+    - 2
+    - always
