@@ -4,7 +4,7 @@ AWS Lambda function to notify [EC2 Scheduled Events](http://docs.aws.amazon.com/
 
 ![image](images/slack.png)
 
-## Development
+## Install
 
 At first, set AWS credentials as environment variables:
 
@@ -15,42 +15,25 @@ $ export AWS_SECRET_ACCESS_KEY=awssecretaccesskey
 $ export AWS_REGION=ap-northeast-1 # or your region
 ```
 
-Install dependencies:
+You can install this function as a part of Apex project or standalone function.
+
+### 1. Apex project
+
+Add ec2-event-slack-notifier to your Apex project:
 
 ```bash
-$ npm install
+$ git submodule add https://github.com/dtan4/ec2-event-slack-notifier.git functions/ec2-event-slack-notifier
 ```
 
-Set secret variables:
+Deploy it:
 
 ```bash
-$ cat src/env.js.sample
-export const locale = 'ja-JP';
-export const timezone = "Asia/Tokyo";
-export const webHookURL = '';
-
-$ cp src/env.js.sample src/env.js
-$ vim src/env.js
+$ apex deploy ec2-event-slack-notifier
 ```
 
-Start development:
+### 2. Standalone
 
-```bash
-# Start real-time transpilation
-$ npm run watch
-
-# Execute Lambda function on local machine
-$ npm run local
-```
-
-Create deployment package:
-
-```bash
-# Create .zip package
-$ npm run build
-$ ls dist
-ec2-event-slack-notifier.zip # Upload this fils
-```
+Preparing... :construction_worker:
 
 ## Author
 
