@@ -3,12 +3,14 @@
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
 
-exports.constructAttachments = (statuses, now, locale) => {
+exports.constructAttachments = (statuses, now, locale, timezone) => {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom = event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false });
-      let eventTo = event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false });
+      let eventFrom =
+        event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false, timezone: timezone });
+      let eventTo =
+        event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false, timezone: timezone });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
@@ -54,7 +56,7 @@ exports.handler = (event, context, callback) => {
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses, new Date(), locale);
+    let attachments = constructAttachments(statuses, new Date(), locale, timezone);
 
     if (attachments.length == 0) {
       return {};
