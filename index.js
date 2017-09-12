@@ -3,7 +3,7 @@
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
 
-function constructAttachments(statuses, now, locale) {
+exports.constructAttachments = (statuses, now, locale) => {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
