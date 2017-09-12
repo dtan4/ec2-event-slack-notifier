@@ -100,7 +100,7 @@ describe('constructAttachments', () => {
       }
     ]
 
-    let attachments = index.constructAttachments(statuses, now, locale);
-    assert.deepEqual(attachments, expected, timezone)
+    let attachments = index.constructAttachments(statuses, now, locale, timezone);
+    assert.deepEqual(attachments, expected)
   });
 });
