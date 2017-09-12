@@ -38,7 +38,7 @@ describe('constructAttachments', () => {
         {
           Code: 'instance-stop',
           Description: 'The instance is running on degraded hardware',
-          NotBefore: new Date(2017, 8, 10, 17, 25, 52),
+          NotBefore: new Date("2017-09-10 17:25:52 +0900"),
         }
       ],
       InstanceId: 'i-1fedcba0987654321',
@@ -66,7 +66,7 @@ describe('constructAttachments', () => {
       },
     },
   ]
-  let now = new Date(2017, 8, 1, 12, 34, 56);
+  let now = new Date("2017-09-01 12:34:56 +0900");
   let locale = 'ja-JP';
   let timezone = 'Asia/Tokyo';
 
