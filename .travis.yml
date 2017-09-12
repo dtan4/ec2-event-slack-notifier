@@ -4,6 +4,3 @@ node_js:
 cache:
   directories:
     - "node_modules"
-env:
-  global:
-    - TZ=Asia/Tokyo
