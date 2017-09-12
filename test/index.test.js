@@ -67,7 +67,6 @@ describe('constructAttachments', () => {
     },
   ]
   let now = new Date("2017-09-01 12:34:56 +0900");
-  let locale = 'ja-JP';
   let timezone = 'Asia/Tokyo';
 
   it('should return attachments', () => {
@@ -100,7 +99,7 @@ describe('constructAttachments', () => {
       }
     ]
 
-    let attachments = index.constructAttachments(statuses, now, locale, timezone);
+    let attachments = index.constructAttachments(statuses, now, timezone);
     assert.deepEqual(attachments, expected)
   });
 });
