@@ -72,6 +72,39 @@ describe('constructAttachments', () => {
       Events: [
         {
           Code: 'instance-stop',
+          Description: 'The instance is running on degraded hardware',
+          NotBefore: new Date("2017-08-10 17:25:52 +0900"),
+        }
+      ],
+      InstanceId: 'i-21c7e506afd98143b',
+      InstanceState: {
+        Code: 16,
+        Name: 'running',
+      },
+      InstanceStatus: {
+        Details: [
+          {
+            Name: 'reachability',
+            Status: 'passed',
+          },
+        ],
+        Status: 'ok',
+      },
+      SystemStatus: {
+        Details: [
+          {
+            Name: 'reachability',
+            Status: 'passed',
+          },
+        ],
+        Status: 'ok',
+      },
+    },
+    {
+      AvailabilityZone: 'ap-northeast-1c',
+      Events: [
+        {
+          Code: 'instance-stop',
           Description: '[Completed] The instance is running on degraded hardware',
           NotBefore: new Date("2017-09-10 17:25:52 +0900"),
         }
@@ -131,7 +164,33 @@ describe('constructAttachments', () => {
             short: false,
           },
         ],
-      }
+      },
+      {
+        fallback: 'i-21c7e506afd98143b / instance-stop / 2017-08-10 17:25:52 +0900 -  / The instance is running on degraded hardware',
+        color: 'danger',
+        fields: [
+          {
+            title: 'Instance',
+            value: 'i-21c7e506afd98143b',
+            short: true,
+          },
+          {
+            title: 'Event Type',
+            value: 'instance-stop',
+            short: true,
+          },
+          {
+            title: 'Duration',
+            value: `2017-08-10 17:25:52 +0900 - `,
+            short: false,
+          },
+          {
+            title: 'Description',
+            value: 'The instance is running on degraded hardware',
+            short: false,
+          },
+        ],
+      },
     ];
 
     let attachments = index.constructAttachments(statuses, now, timezone);
