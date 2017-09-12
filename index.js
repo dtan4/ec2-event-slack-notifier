@@ -2,15 +2,14 @@
 
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
+let moment = require('moment-timezone');
 
-function constructAttachments(statuses, locale) {
-  let now = new Date();
-
+exports.constructAttachments = (statuses, now, timezone) => {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom = event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false });
-      let eventTo = event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false });
+      let eventFrom = event.NotBefore == undefined ? '' : moment(event.NotBefore).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
+      let eventTo = event.NotAfter == undefined ? '' : moment(event.NotAfter).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
@@ -43,7 +42,6 @@ function constructAttachments(statuses, locale) {
 }
 
 exports.handler = (event, context, callback) => {
-  let locale = process.env.LOCALE;          // e.g. ja-JP
   let timezone = process.env.TIMEZONE;      // e.g. Asia/Tokyo
   let webHookURL = process.env.WEBHOOK_URL;
 
@@ -56,7 +54,7 @@ exports.handler = (event, context, callback) => {
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses, locale);
+    let attachments = this.constructAttachments(statuses, new Date(), timezone);
 
     if (attachments.length == 0) {
       return {};

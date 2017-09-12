@@ -3,6 +3,7 @@ extends:
   - plugin:node/recommended
 plugins:
   - node
+  - mocha
 rules:
   comma-dangle: 0
   node/no-unsupported-features:
