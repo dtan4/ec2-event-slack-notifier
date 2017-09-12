@@ -8,9 +8,9 @@ exports.constructAttachments = (statuses, now, locale, timezone) => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
       let eventFrom =
-        event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false, timezone: timezone });
+        event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false, timeZone: timezone });
       let eventTo =
-        event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false, timezone: timezone });
+        event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false, timeZone: timezone });
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
