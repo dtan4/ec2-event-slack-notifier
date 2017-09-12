@@ -7,6 +7,10 @@ let moment = require('moment-timezone');
 exports.constructAttachments = (statuses, now, timezone) => {
   return statuses.map(status => {
     return status.Events.map(event => {
+      if (event.Description.match(/^\[Completed\]/)) {
+        return null;
+      }
+
       let color = event.NotBefore > now ? 'warning' : 'danger';
       let eventFrom = event.NotBefore == undefined ? '' : moment(event.NotBefore).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
       let eventTo = event.NotAfter == undefined ? '' : moment(event.NotAfter).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
@@ -38,7 +42,7 @@ exports.constructAttachments = (statuses, now, timezone) => {
         ],
       };
     });
-  }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []);
+  }).filter(a => a.length > 0).reduce((r, v) => r.concat(v), []).filter(a => a != null);
 }
 
 exports.handler = (event, context, callback) => {
