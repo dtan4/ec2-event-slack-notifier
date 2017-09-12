@@ -2,15 +2,14 @@
 
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
+let moment = require('moment-timezone');
 
 exports.constructAttachments = (statuses, now, locale, timezone) => {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom =
-        event.NotBefore == undefined ? '' : event.NotBefore.toLocaleString(locale, { hour12: false, timeZone: timezone });
-      let eventTo =
-        event.NotAfter == undefined ? '' : event.NotAfter.toLocaleString(locale, { hour12: false, timeZone: timezone });
+      let eventFrom = event.NotBefore == undefined ? '' : moment(event.NotBefore).tz(timezone).format('YYYY-MM-DD kk:mm:ss');
+      let eventTo = event.NotAfter == undefined ? '' : moment(event.NotAfter).tz(timezone).format('YYYY-MM-DD kk:mm:ss');
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,

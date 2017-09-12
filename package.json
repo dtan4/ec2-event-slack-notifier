@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.3.19",
+    "moment-timezone": "^0.5.13",
     "request-promise": "^3.0.0"
   }
 }
