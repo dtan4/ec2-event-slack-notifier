@@ -1,3 +1,5 @@
+/* eslint-env mocha */
+
 'use strict';
 
 let assert = require('assert');
@@ -65,7 +67,7 @@ describe('constructAttachments', () => {
         Status: 'ok',
       },
     },
-  ]
+  ];
   let now = new Date("2017-09-01 12:34:56 +0900");
   let timezone = 'Asia/Tokyo';
 
@@ -97,9 +99,9 @@ describe('constructAttachments', () => {
           },
         ],
       }
-    ]
+    ];
 
     let attachments = index.constructAttachments(statuses, now, timezone);
-    assert.deepEqual(attachments, expected)
+    assert.deepEqual(attachments, expected);
   });
 });
