@@ -4,7 +4,7 @@
   "description": "Notify EC2 Scheduled Events to Slack",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint .",
     "test": "mocha"
   },
   "repository": {
