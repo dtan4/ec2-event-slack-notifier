@@ -67,6 +67,39 @@ describe('constructAttachments', () => {
         Status: 'ok',
       },
     },
+    {
+      AvailabilityZone: 'ap-northeast-1c',
+      Events: [
+        {
+          Code: 'instance-stop',
+          Description: '[Completed] The instance is running on degraded hardware',
+          NotBefore: new Date("2017-09-10 17:25:52 +0900"),
+        }
+      ],
+      InstanceId: 'i-e24b95371adf0186c',
+      InstanceState: {
+        Code: 16,
+        Name: 'running',
+      },
+      InstanceStatus: {
+        Details: [
+          {
+            Name: 'reachability',
+            Status: 'passed',
+          },
+        ],
+        Status: 'ok',
+      },
+      SystemStatus: {
+        Details: [
+          {
+            Name: 'reachability',
+            Status: 'passed',
+          },
+        ],
+        Status: 'ok',
+      },
+    },
   ];
   let now = new Date("2017-09-01 12:34:56 +0900");
   let timezone = 'Asia/Tokyo';
