@@ -72,7 +72,7 @@ describe('constructAttachments', () => {
   it('should return attachments', () => {
     let expected = [
       {
-        fallback: 'i-1fedcba0987654321 / instance-stop / 2017-09-10 17:25:52 -  / The instance is running on degraded hardware',
+        fallback: 'i-1fedcba0987654321 / instance-stop / 2017-09-10 17:25:52 +0900 -  / The instance is running on degraded hardware',
         color: 'warning',
         fields: [
           {
@@ -87,7 +87,7 @@ describe('constructAttachments', () => {
           },
           {
             title: 'Duration',
-            value: `2017-09-10 17:25:52 - `,
+            value: `2017-09-10 17:25:52 +0900 - `,
             short: false,
           },
           {

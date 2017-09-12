@@ -8,8 +8,8 @@ exports.constructAttachments = (statuses, now, timezone) => {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
-      let eventFrom = event.NotBefore == undefined ? '' : moment(event.NotBefore).tz(timezone).format('YYYY-MM-DD kk:mm:ss');
-      let eventTo = event.NotAfter == undefined ? '' : moment(event.NotAfter).tz(timezone).format('YYYY-MM-DD kk:mm:ss');
+      let eventFrom = event.NotBefore == undefined ? '' : moment(event.NotBefore).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
+      let eventTo = event.NotAfter == undefined ? '' : moment(event.NotAfter).tz(timezone).format('YYYY-MM-DD kk:mm:ss ZZ');
 
       return {
         fallback: `${status.InstanceId} / ${event.Code} / ${eventFrom} - ${eventTo} / ${event.Description}`,
