@@ -56,7 +56,7 @@ exports.handler = (event, context, callback) => {
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses, new Date(), locale, timezone);
+    let attachments = this.constructAttachments(statuses, new Date(), locale, timezone);
 
     if (attachments.length == 0) {
       return {};
