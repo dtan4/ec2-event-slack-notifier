@@ -3,9 +3,7 @@
 let AWS = require('aws-sdk');
 let RP = require('request-promise');
 
-function constructAttachments(statuses, locale) {
-  let now = new Date();
-
+function constructAttachments(statuses, now, locale) {
   return statuses.map(status => {
     return status.Events.map(event => {
       let color = event.NotBefore > now ? 'warning' : 'danger';
@@ -56,7 +54,7 @@ exports.handler = (event, context, callback) => {
 
   describeInstanceStatusPromise.then(data => {
     let statuses = data.InstanceStatuses.filter(v => v.Events.length > 0);
-    let attachments = constructAttachments(statuses, locale);
+    let attachments = constructAttachments(statuses, new Date(), locale);
 
     if (attachments.length == 0) {
       return {};
