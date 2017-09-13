@@ -1,0 +1,16 @@
+service: ec2-event-slack-notifier
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  role: # your IAM role ARN
+  region: ap-northeast-1 # your AWS region
+
+functions:
+  main:
+    handler: index.handler
+    environment:
+      TIMEZONE: Asia/Tokyo # your timezone
+      WEBHOOK_URL: # your Slack Webhook URL
+    events:
+    - schedule: cron(30 0 * * ? *) # every 9:30 JST (0:30 GMT)

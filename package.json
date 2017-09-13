@@ -4,6 +4,9 @@
   "description": "Notify EC2 Scheduled Events to Slack",
   "main": "index.js",
   "scripts": {
+    "deploy": "serverless deploy",
+    "invoke": "serverless invoke -f main",
+    "invoke-local": "serverless invoke local -f main",
     "lint": "eslint .",
     "test": "mocha"
   },
@@ -21,7 +24,8 @@
     "eslint": "^2.12.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-node": "^2.1.3",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "serverless": "^1.21.1"
   },
   "dependencies": {
     "aws-sdk": "^2.3.19",
