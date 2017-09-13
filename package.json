@@ -4,6 +4,9 @@
   "description": "Notify EC2 Scheduled Events to Slack",
   "main": "index.js",
   "scripts": {
+    "deploy": "serverless deploy",
+    "invoke": "serverless invoke -f main",
+    "invoke-local": "serverless invoke local -f main",
     "lint": "eslint .",
     "test": "mocha"
   },
