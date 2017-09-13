@@ -17,7 +17,7 @@ $ export AWS_SECRET_ACCESS_KEY=awssecretaccesskey
 $ export AWS_REGION=ap-northeast-1 # or your region
 ```
 
-You can install this function as a part of Apex project or standalone function.
+You can install this function as a part of [Apex](http://apex.run/) project, [Serverless](https://serverless.com/) function or standalone function.
 
 ### 1. Apex project
 
@@ -33,7 +33,18 @@ Deploy it:
 $ apex deploy ec2-event-slack-notifier
 ```
 
-### 2. Standalone
+### 2. Serverless function
+
+```sh-session
+$ git clone https://github.com/dtan4/ec2-event-slack-notifier.git
+$ cd ec2-event-slack-notifier
+$ yarn
+$ cp serverless.yml.example serverless.yml
+$ vim serverless.yml
+$ npm run deploy
+```
+
+### 3. Standalone
 
 Preparing... :construction_worker:
 
