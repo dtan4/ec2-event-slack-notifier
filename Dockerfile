@@ -13,4 +13,4 @@ RUN yarn install --frozen-lockfile --production
 
 COPY . /app/
 
-CMD ["node", "/app/entrypoint.js"]
+CMD ["npm", "run", "start"]

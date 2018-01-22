@@ -10,6 +10,7 @@
     "invoke": "serverless invoke -f main",
     "invoke-local": "serverless invoke local -f main",
     "lint": "eslint .",
+    "start": "node entrypoint.js",
     "test": "mocha"
   },
   "repository": {
