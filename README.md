@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dtan4/ec2-event-slack-notifier.svg?branch=master)](https://travis-ci.org/dtan4/ec2-event-slack-notifier)
 
-AWS Lambda function to notify [EC2 Scheduled Events](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html) to Slack
+AWS Lambda function / Docker image to notify [EC2 Scheduled Events](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html) to Slack
 
 ![image](images/slack.png)
 
