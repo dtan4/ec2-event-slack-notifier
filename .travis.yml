@@ -1,6 +1,28 @@
 language: node_js
+
 node_js:
   - '6.10.3'
+
+services:
+  - docker
+
+env:
+  global:
+    - secure: "IPt7uzjExogiC4bjH0rb4K0dgMwmvVCEocO6xLrJmN8YlBAu0YOoZtwy9tzv7fBqqpPIkCvYipydAkza8xWvwABYaZDMUx7MjFjI6WrIz7B/Yg5fAdkCR6RIjkzb8xQtPYCduMS71xJQ/XO3p7uv+DdWF8dZZezciwHWdmPrvWe8+dTaYDVLXCIOeK159TU6zYiQFpiKISiBveePRPvVLrq3nunXgFEX4pnkLNmT3qfiqi3+do2oFAw6U3GagUz2TDoiYT6NpkXA9lWOwOIjjRbQbQTOhZP4Cq5sYHykJHpcyRP/VmG20uZTk39YgysLRKHf1AWuBmkuQsqTLO2cYWRcRanXpJm72R1GdQEhBzNvUuZ1m4rXV2aQ6NnuWMTp9q8/77YQVsyg3zQjMS14OV3o17LvhRn4KyP+CtffJIrW2LbY8PH6xYggOAU8MjZXA1B9r0EPzbJwjCBlaoXsDAGdC5ujSzGGyHALbaSVKJwTzTl6Tc+Zt18cTYqly/gWz0QMBQDx7r1ihQ6wshuICoew6XiyG/vtMyb9J8uclQ9n43fN4K33n7rTdzXoMykehKbZwgduMfkYF2nAGSHPujgjHsNX8KX/mLm8BUGnKdHaUzM5EyVP/DlW65YihYjB6jOoNOxGlkrX+sfoGlYg8n/mm151zlNApATRAFwkwPU="
+    - secure: "j6/lWUtUv1JcK5ed2yZQmp2JBkvY4s0mX6sz19yc6Shy6otz8dFYk5AKAbeSYw8U5lFOYneq1NhpiewDyvgnUFRgwwNkRy+f2CB6lSloTihlQS4CseBP4IQGIpqB5ZThMVf7dW8kf2MgLsZnxeR+5D6msxxJtZULN5f+wCP5gS/kWp2A5YdzkAMxFRVVceKdLcel5QuPsR3NcveZ05PCra/IkDS5Ab0IDhm7+t1uMz69arUZufj2PFzPPNQJQVIhY6Yw7UWqsNIgm/hK9jOUSAAvm4lLXFH8P9USszZ6Q30fIu/4rmR56crCq5KJxZ/Fw0wFtOhG63tylJTUc1w4zJvpvLWLlktgUS6rXEIeqGcg8KYfiYtzNOreisEjceKUEYWbZZY/I30IKpu5IYrA+d2GL6EN+L8cNerGhyejTh81oQmJdqc3Qc/Di5ZXtxwVkGH+5AFV/VV0vUUW6ON5odDQ6QMudl5a9/CUDpyUKk36RD5Ju5GEZKDfx9qHmQR7yOAWSyY8MMy47t69C3Vedoxm9C0z+WV5YcrC3yxk+5HBnVltR7NX5hk0Y4Z2KYHSqET1EyZ93SVF/5p+0T2sUTJBjelg+s4oXL1fVo7Qcpl60QBEXdBQ2jBgPhS+HLpr9cqwFja69h8wIpcwo+yPGko3TUjVVa7/5mmg2MuN3EA="
+
 cache:
   directories:
     - "node_modules"
+
+before_deploy:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD quay.io
+  - npm run docker-build
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: npm run docker-push
+  on:
+    # branch: master
+    all_branches: true
