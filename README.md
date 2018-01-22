@@ -6,23 +6,22 @@ AWS Lambda function / Docker image to notify [EC2 Scheduled Events](http://docs.
 
 ![image](images/slack.png)
 
-## Install
-
-At first, set AWS credentials as environment variables:
-
-```bash
-# Set AWS credentials
-$ export AWS_ACCESS_KEY_ID=awsaccesskeyid
-$ export AWS_SECRET_ACCESS_KEY=awssecretaccesskey
-$ export AWS_REGION=ap-northeast-1 # or your region
-```
-
 You can install this function as...
 
 - [Serverless](https://serverless.com/) function
 - a part of [Apex](http://apex.run/) project
 - standalone function
 - Kubernetes CronJob
+
+### Environment variables
+
+|key|description|
+|---|-----------|
+|`AWS_ACCESS_KEY_ID`|AWS access key ID|
+|`AWS_SECRET_ACCESS_KEY`|AWS secret access key|
+|`AWS_REGION`|AWS region|
+|`WEBHOOK_URL`|Slack webhook URL|
+|`TZ`|timezone ([tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) zone name) e.g., `Asia/Tokyo`|
 
 ### 1. Serverless function
 
