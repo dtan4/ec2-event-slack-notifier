@@ -1,0 +1,9 @@
+*
+!Dockerfile
+!.dockerignore
+
+!package.json
+!yarn.lock
+
+!entrypoint.js
+!index.js

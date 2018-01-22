@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "deploy": "serverless deploy",
+    "docker-build": "docker build -t quay.io/dtan4/ec2-event-slack-notifier .",
+    "docker-push": "docker push quay.io/dtan4/ec2-event-slack-notifier",
     "invoke": "serverless invoke -f main",
     "invoke-local": "serverless invoke local -f main",
     "lint": "eslint .",
+    "start": "node entrypoint.js",
     "test": "mocha"
   },
   "repository": {
