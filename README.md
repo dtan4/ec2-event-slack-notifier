@@ -13,6 +13,8 @@ You can install this function as...
 - standalone function
 - Kubernetes CronJob
 
+## Usage
+
 ### Environment variables
 
 |key|description|
