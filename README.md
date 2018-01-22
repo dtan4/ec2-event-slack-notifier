@@ -67,7 +67,7 @@ Set these Secrets:
 deploy CronJob resource:
 
 ```bash
-kubectl create -f kubernetest/cronjob.yaml [-n NAMESPACE]
+kubectl create -f kubernetes/cronjob.yaml [-n NAMESPACE]
 ```
 
 `ec2-event-slack-notifier` Job will be invoked at 0:30 GMT in default.
