@@ -17,7 +17,12 @@ $ export AWS_SECRET_ACCESS_KEY=awssecretaccesskey
 $ export AWS_REGION=ap-northeast-1 # or your region
 ```
 
-You can install this function as [Serverless](https://serverless.com/) function, a part of [Apex](http://apex.run/) project, or standalone function.
+You can install this function as...
+
+- [Serverless](https://serverless.com/) function
+- a part of [Apex](http://apex.run/) project
+- standalone function
+- Kubernetes CronJob
 
 ### 1. Serverless function
 
@@ -47,6 +52,26 @@ $ apex deploy ec2-event-slack-notifier
 ### 3. Standalone
 
 Preparing... :construction_worker:
+
+### 4. Kubernetes CronJob
+
+Set these Secrets:
+
+|name|key|description|
+|----|---|-----------|
+|`dotenv`|`AWS_ACCESS_KEY_ID`|AWS access key ID|
+|`dotenv`|`AWS_SECRET_ACCESS_KEY`|AWS secret access key|
+|`dotenv`|`AWS_REGION`|AWS region|
+|`dotenv`|`WEBHOOK_URL`|Slack webhook URL|
+|`dotenv`|`TZ`|timezone ([tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) zone name) e.g., `Asia/Tokyo`|
+
+deploy CronJob resource:
+
+```bash
+kubectl create -f kubernetest/cronjob.yaml [-n NAMESPACE]
+```
+
+`ec2-event-slack-notifier` Job will be invoked at 0:30 GMT in default.
 
 ## Author
 
