@@ -1,0 +1,39 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: ec2-event-slack-notifier
+  labels:
+    name: ec2-event-slack-notifier
+    role: job
+spec:
+  schedule: "30 0 * * *"
+  concurrencyPolicy: "Forbid"
+  suspend: false
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      name: ec2-event-slack-notifier
+      labels:
+        basename: ec2-event-slack-notifier
+        role: job
+    spec:
+      template:
+        metadata:
+          name: ec2-event-slack-notifier
+          labels:
+            basename: ec2-event-slack-notifier
+            role: job
+        spec:
+          containers:
+          - name: ec2-event-slack-notifier
+            image: quay.io/dtan4/ec2-event-slack-notifier:latest
+            imagePullPolicy: Always
+            command:
+            - "npm"
+            - "run"
+            - "start"
+            envFrom:
+            - secretRef:
+                name: dotenv
+          restartPolicy: Never
